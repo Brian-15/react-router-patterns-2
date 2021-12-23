@@ -5,15 +5,15 @@ import ColorFilter from './ColorFilter.js';
 const defaultColors = [
   {
     name: 'red',
-    value: ''
+    value: '#ff0000'
   },
   {
     name: 'green',
-    value: ''
+    value: '#00ff00'
   },
   {
     name: 'blue',
-    value: ''
+    value: '#0000ff'
   }
 ];
 
