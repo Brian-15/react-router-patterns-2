@@ -1,6 +1,8 @@
 import { BrowserRouter, Switch, Route, Redirect, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import ColorList from './ColorList.js';
 import ColorFilter from './ColorFilter.js';
+import NewColorForm from './NewColorForm.js';
 
 const defaultColors = [
   {
@@ -17,15 +19,26 @@ const defaultColors = [
   }
 ];
 
-const App = ({ colors=defaultColors }) => {
+const App = ({ initialData=defaultColors }) => {
+  
+  useEffect(() => {
+    localStorage['colors'] = JSON.stringify([...initialData]);
+  });
+
+  const colors = JSON.parse(localStorage['colors']);
+
   return (
     <>
       <h1>Color Picker</h1>
       <BrowserRouter>
         <Link to='/colors'>Home</Link>
+        <Link to='/colors/new'>Add Color</Link>
         <Switch>
           <Route exact path='/colors'>
-            <ColorList colors={colors} />
+            <ColorList colorNames={colors.map(({ name }) => name)} />
+          </Route>
+          <Route exact path='/colors/new'>
+            <NewColorForm />
           </Route>
           <Route path='/colors/:name'>
             <ColorFilter colors={colors} />
