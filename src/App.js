@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route, Redirect, Link } from 'react-router-dom';
+import ColorList from './ColorList.js';
+import ColorFilter from './ColorFilter.js';
 
-function App() {
+const defaultColors = [
+  {
+    name: 'red',
+    value: ''
+  },
+  {
+    name: 'green',
+    value: ''
+  },
+  {
+    name: 'blue',
+    value: ''
+  }
+];
+
+const App = ({ colors=defaultColors }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Color Picker</h1>
+      <BrowserRouter>
+        <Link to='/colors'>Home</Link>
+        <Switch>
+          <Route exact path='/colors'>
+            <ColorList colors={colors} />
+          </Route>
+          <Route path='/colors/:name'>
+            <ColorFilter colors={colors} />
+          </Route>
+          <Redirect to='/colors' />
+        </Switch>
+      </BrowserRouter>
+    </>
   );
-}
+};
 
 export default App;
