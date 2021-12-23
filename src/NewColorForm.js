@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const NewColorForm = () => {
-  const [ formData, setFormData ] = useState({name: '', value: '#000000'});
+const NewColorForm = ({ initialData={name: '', value: '#000000'} }) => {
+  const [ formData, setFormData ] = useState(initialData);
 
   const handleChange = evt => {
     const { name, value } = evt.target;
@@ -23,7 +23,8 @@ const NewColorForm = () => {
       value: formData.value
     });
     localStorage['colors'] = JSON.stringify(currColors);
-    console.log('created');
+    window.alert(`${formData.name} created.`)
+    setFormData(initialData);
   };
 
   return (
